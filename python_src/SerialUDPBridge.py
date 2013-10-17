@@ -7,7 +7,7 @@ from threading import Thread
 def recvUDP(sock,SerialIOArduino):
     while True:
         data, addr = sock.recvfrom(1280) # Max recieve size is 1280 bytes
-        print "UDP received message:", data.strip()
+        #print "UDP received message:", data.strip()
         SerialIOArduino.write(data)
 
 port = "/dev/ttyACM0"
@@ -20,7 +20,7 @@ print "UDP target port:", UDP_PORT
 
 sock = socket.socket(socket.AF_INET,     # Internet protocol
                      socket.SOCK_DGRAM)  # User Datagram (UDP)
-sock.bind("0.0.0.0", UDP_PORT)           # Listen on all adapters
+sock.bind(("0.0.0.0", UDP_PORT))           # Listen on all adapters
 
 SerialIOArduino = serial.Serial(port,9600) # setup the serial port and baudrate
 SerialIOArduino.flushInput() # Remove old input's
